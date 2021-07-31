@@ -8,13 +8,6 @@ public class BinarySearch {
         System.out.println(binarySearch.binarySearch(originalArray,0, originalArray.length-1,6));
     }
 
-    /**
-     * @param originalArray
-     * @param left
-     * @param right
-     * @param searchNum
-     * @return int
-     */
     public int binarySearch(int[] originalArray, int left, int right, int searchNum){
         int middle;
         while (left <= right) {
