@@ -1,4 +1,4 @@
-package com.practice.data.structures.chapter2;
+package com.practice.data.structures.arrays;
 
 public class Array {
 
