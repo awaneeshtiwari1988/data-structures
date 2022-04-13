@@ -1,6 +1,8 @@
 package com.practice.data.structures.trees;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -90,7 +92,27 @@ public class BinarySearchTree {
                         }
                     }
                 } else {
+                    BinaryTreeNode leftMost = binaryTreeNode.rightChild.leftChild;
+                    BinaryTreeNode leftMostParent = binaryTreeNode.leftChild;
 
+                    while (leftMost.leftChild != null){
+                        leftMostParent = leftMost;
+                        leftMost = leftMost.leftChild;
+                    }
+
+                    leftMostParent.leftChild = leftMost.rightChild;
+                    leftMost.leftChild = binaryTreeNode.leftChild;
+                    leftMost.rightChild = binaryTreeNode.rightChild;
+
+                    if(parentNode == null) {
+                        this.root = leftMost;
+                    } else {
+                        if(binaryTreeNode.data < parentNode.data){
+                            parentNode.leftChild = leftMost;
+                        } else if (binaryTreeNode.data > parentNode.data){
+                            parentNode.rightChild = leftMost;
+                        }
+                    }
                 }
 
             }
@@ -101,7 +123,7 @@ public class BinarySearchTree {
 
     public ArrayList<Integer> breadthFirstSearch(){
         ArrayList<Integer> outputList = new ArrayList<>();
-        Queue<BinaryTreeNode> queue = new LinkedBlockingQueue<>();
+        Queue<BinaryTreeNode> queue = new PriorityQueue<>();
         BinaryTreeNode currentNode = this.root;
         queue.add(currentNode);
         while(queue.size() > 0){
@@ -197,7 +219,7 @@ public class BinarySearchTree {
     public static void main(String[] args) {
         Integer[] inputArray = {5,14,null,1};
         BinarySearchTree binarySearchTree = new BinarySearchTree();
-        for (int i : inputArray) {
+        for (Integer i : inputArray) {
             binarySearchTree.insert(i);
         }
         System.out.println(binarySearchTree.root);
@@ -228,6 +250,13 @@ public class BinarySearchTree {
             System.out.println(items);
         }
 
-
+        Integer[] array = {3,9,20,null,null,15,7};
+        binarySearchTree = new BinarySearchTree();
+        for (int i : inputArray) {
+            binarySearchTree.insert(i);
+        }
+        System.out.println(binarySearchTree.root);
+        List<Integer> lst = binarySearchTree.depthFirstSearchInOrder();
+        System.out.println(lst.size());
     }
 }

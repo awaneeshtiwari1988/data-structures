@@ -1,13 +1,13 @@
 package com.practice.data.structures.linkedlist;
 
-import org.w3c.dom.Node;
-
-import java.util.LinkedList;
-
 public class SinglyLinkedList<T> {
 
     private SingleHeadedNode<T> head;
     private int length;
+
+    public SingleHeadedNode<T> getHead() {
+        return head;
+    }
 
     public SinglyLinkedList<T> append(T value) {
         SingleHeadedNode<T> singleHeadedNode = new SingleHeadedNode<>(value);
@@ -15,7 +15,7 @@ public class SinglyLinkedList<T> {
             this.head = singleHeadedNode;
         } else {
             SingleHeadedNode<T> tail = this.head;
-            while (tail.tail != null){
+            while (tail.tail != null) {
                 tail = tail.tail;
             }
             tail.tail = singleHeadedNode;
@@ -24,9 +24,9 @@ public class SinglyLinkedList<T> {
         return this;
     }
 
-    public SinglyLinkedList<T> prepend(T value){
+    public SinglyLinkedList<T> prepend(T value) {
         SingleHeadedNode<T> singleHeadedNode = new SingleHeadedNode<>(value);
-        if(this.head == null){
+        if (this.head == null) {
             this.head = singleHeadedNode;
         } else {
             singleHeadedNode.tail = this.head;
@@ -37,12 +37,12 @@ public class SinglyLinkedList<T> {
     }
 
     public SinglyLinkedList<T> insert(int index, T value) {
-        if(index >= this.length){
+        if (index >= this.length) {
             return this.append(value);
         }
 
         SingleHeadedNode<T> singleHeadedNode = new SingleHeadedNode<>(value);
-        SingleHeadedNode<T> leaderSingleHeadedNode = this.traverse(index -1);
+        SingleHeadedNode<T> leaderSingleHeadedNode = this.traverse(index - 1);
         SingleHeadedNode<T> nextSingleHeadedNode = leaderSingleHeadedNode.tail;
         leaderSingleHeadedNode.tail = singleHeadedNode;
         singleHeadedNode.tail = nextSingleHeadedNode;
@@ -50,14 +50,14 @@ public class SinglyLinkedList<T> {
         return this;
     }
 
-    public SingleHeadedNode<T> reverse(SingleHeadedNode<T> head){
-        if(head.tail == null){
+    public SingleHeadedNode<T> reverse(SingleHeadedNode<T> head) {
+        if (head.tail == null) {
             return head;
         }
 
         SingleHeadedNode<T> primary = head;
         SingleHeadedNode<T> secondary = primary.tail;
-        while(secondary != null){
+        while (secondary != null) {
             SingleHeadedNode<T> temp = secondary.tail;
             secondary.tail = primary;
             primary = secondary;
@@ -69,24 +69,24 @@ public class SinglyLinkedList<T> {
         return head;
     }
 
-    public SingleHeadedNode<T> rotateLinkedList(SingleHeadedNode<T> head, int k){
-        if(head.tail == null || k == 0){
+    public SingleHeadedNode<T> rotateLinkedList(SingleHeadedNode<T> head, int k) {
+        if (head.tail == null || k == 0) {
             return head;
         }
 
         SingleHeadedNode<T> primary = head;
         int length = 1;
-        while(length < k && primary != null) {
+        while (length < k && primary != null) {
             primary = primary.tail;
             length++;
         }
 
-        if (primary == null){
+        if (primary == null) {
             return head;
         }
 
         SingleHeadedNode<T> kthNode = primary;
-        while(primary.tail != null){
+        while (primary.tail != null) {
             primary = primary.tail;
         }
 
@@ -97,7 +97,7 @@ public class SinglyLinkedList<T> {
     }
 
 
-    public SinglyLinkedList<T> remove(int index){
+    public SinglyLinkedList<T> remove(int index) {
         SingleHeadedNode<T> headSingleHeadedNode = this.traverse(index - 1);
         SingleHeadedNode<T> singleHeadedNodeToRemove = headSingleHeadedNode.tail;
         headSingleHeadedNode.tail = singleHeadedNodeToRemove.tail;
@@ -105,7 +105,7 @@ public class SinglyLinkedList<T> {
         return this;
     }
 
-    public SingleHeadedNode<T> traverse(int index){
+    public SingleHeadedNode<T> traverse(int index) {
         int counter = 0;
         SingleHeadedNode<T> currentSingleHeadedNode = this.head;
         while (counter != index) {
@@ -116,10 +116,10 @@ public class SinglyLinkedList<T> {
         return currentSingleHeadedNode;
     }
 
-    public void printList(SinglyLinkedList<T> singlyLinkedList){
+    public void printList(SinglyLinkedList<T> singlyLinkedList) {
         SingleHeadedNode<T> singleHeadedNode = singlyLinkedList.head;
         System.out.println("Linked List");
-        while (singleHeadedNode != null){
+        while (singleHeadedNode != null) {
             System.out.print(singleHeadedNode.value + " ");
             singleHeadedNode = singleHeadedNode.tail;
         }
