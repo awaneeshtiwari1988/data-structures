@@ -193,27 +193,21 @@ public class BinarySearchTree {
     }
 
     public boolean isValidBST(BinaryTreeNode root) {
-        if(root != null && root.leftChild == null && root.rightChild == null){
+        return false;
+    }
+
+    private boolean isValidBST(BinaryTreeNode binaryTreeNode,int minValue, int maxValue){
+        if(binaryTreeNode == null){
             return true;
         }
 
-        ArrayList<Integer> outputList = traverseInOrder(root,
-                new ArrayList<Integer>());
-        if(!outputList.contains(null)) {
-            if(outputList.size() <= 2
-                    && !(outputList.get(0) < outputList.get(1))){
-                return false;
-            } else {
-                for(int i = 0; i < outputList.size() - 2; i++){
-                    if(!(outputList.get(i) < outputList.get(i+1))){
-                        return false;
-                    }
-                }
-                return true;
-            }
+        if(binaryTreeNode.data < minValue || binaryTreeNode.data > maxValue){
+            return false;
         }
 
-        return false;
+        boolean isLeftBinaryTree = isValidBST(binaryTreeNode.leftChild, minValue, binaryTreeNode.data - 1);
+        boolean isRightBinaryTree = isValidBST(binaryTreeNode.rightChild, binaryTreeNode.data - 1, maxValue);
+        return isLeftBinaryTree && isRightBinaryTree;
     }
 
     public static void main(String[] args) {
