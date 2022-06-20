@@ -226,4 +226,64 @@ public class CustomLinkedList {
 
         return head;
     }
+
+    public LinkedListNode swapNthNodeWithHead(LinkedListNode head, int n){
+        LinkedListNode previousNode = null;
+        LinkedListNode currentNode = head;
+
+        if(head == null || n == 1){
+            return head;
+        }
+
+        for (int nodePosition = 0; nodePosition < n - 1; nodePosition++) {
+            previousNode = currentNode;
+            currentNode = currentNode.next;
+        }
+
+        previousNode.next = head;
+        LinkedListNode temp = head.next;
+        head.next = currentNode.next;
+        currentNode.next = temp;
+
+        return currentNode;
+    }
+
+    public LinkedListNode swapNthNodeFromBegEnd(LinkedListNode head, int n){
+        int lengthOfList = 0;
+        LinkedListNode temp = head;
+        while(temp != null){
+            lengthOfList++;
+            temp = temp.next;
+        }
+
+        // Get the previous and current element from beginning
+        LinkedListNode previousNodeFromBeginning = null;
+        LinkedListNode currentNodeFromBeginning = head;
+        for (int nodePosition = 1; nodePosition < n; nodePosition++) {
+            previousNodeFromBeginning = currentNodeFromBeginning;
+            currentNodeFromBeginning = currentNodeFromBeginning.next;
+        }
+
+        // Get the previous and current element from end
+        LinkedListNode previousNodeFromEnd = null;
+        LinkedListNode currentNodeFromEnd = head;
+        for (int nodePosition = 1; nodePosition < lengthOfList - n + 1; nodePosition++) {
+            previousNodeFromEnd = currentNodeFromEnd;
+            currentNodeFromEnd = currentNodeFromEnd.next;
+        }
+
+        if(previousNodeFromBeginning != null){
+            previousNodeFromBeginning.next = currentNodeFromEnd;
+        }
+
+        if(previousNodeFromEnd != null){
+            previousNodeFromEnd.next = currentNodeFromBeginning;
+        }
+
+        LinkedListNode tempNode = currentNodeFromBeginning.next;
+        currentNodeFromBeginning.next = currentNodeFromEnd.next;
+        currentNodeFromEnd.next = tempNode;
+
+        return head;
+    }
 }
