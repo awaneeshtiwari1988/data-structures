@@ -140,4 +140,90 @@ public class CustomLinkedList {
 
         return sorted;
     }
+
+    public LinkedListNode getIntersectionPoint(LinkedListNode head1, LinkedListNode head2){
+        LinkedListNode currentNode1 = null;
+        LinkedListNode currentNode2 = null;
+
+        int head1Length = getLengthOfLinkedList(head1);
+        int head2Length = getLengthOfLinkedList(head2);
+
+        int lengthDifference = 0;
+        if(head1Length >= head2Length){
+            lengthDifference = head1Length - head2Length;
+            currentNode1 = head1;
+            currentNode2 = head2;
+        } else {
+            lengthDifference = head2Length - head1Length;
+            currentNode1 = head2;
+            currentNode2 = head1;
+        }
+
+        while(lengthDifference >= 0){
+            currentNode1 = currentNode1.next;
+            lengthDifference--;
+        }
+
+
+        while (currentNode1 != null && currentNode2 != null){
+            if(currentNode1 == currentNode2){
+                return currentNode1;
+            }
+
+            currentNode1 = currentNode1.next;
+            currentNode2 = currentNode2.next;
+        }
+
+        return null;
+    }
+
+    public int getLengthOfLinkedList(LinkedListNode linkedListNode){
+        int linkedListLength = 0;
+        LinkedListNode temp = linkedListNode;
+        while (temp != null){
+            temp = temp.next;
+            linkedListLength++;
+        }
+
+        return linkedListLength;
+    }
+
+    public LinkedListNode getIntersectingNodeByHashTable(LinkedListNode head1, LinkedListNode head2){
+        Set<LinkedListNode> set = new LinkedHashSet<>();
+
+        while(head2 != null){
+            set.add(head2);
+            head2 = head2.next;
+        }
+
+        while(head1 != null){
+            if(set.contains(head1)){
+                return head1;
+            }
+            head1 = head1.next;
+        }
+
+        return null;
+    }
+
+    public LinkedListNode getNthNodeFromEnd(LinkedListNode head, int n){
+        LinkedListNode tail = head;
+
+        // Move Tail n nodes apart from head
+        while (tail != null && n > 0){
+            tail = tail.next;
+            n--;
+        }
+
+        if(n != 0){
+            return null;
+        }
+
+        while(tail != null){
+            tail = tail.next;
+            head = head.next;
+        }
+
+        return head;
+    }
 }
