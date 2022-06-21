@@ -6,6 +6,10 @@ public class CustomLinkedList {
 
     private LinkedListNode head;
 
+    public LinkedListNode getHead() {
+        return head;
+    }
+
     public CustomLinkedList(){
         this.head = null;
     }
