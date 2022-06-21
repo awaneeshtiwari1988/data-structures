@@ -286,4 +286,45 @@ public class CustomLinkedList {
 
         return head;
     }
+
+    public LinkedListNode mergeTwoSortedLinkedLists(LinkedListNode head1, LinkedListNode head2){
+        if(head1 == null){
+            return head2;
+        } else if(head2 == null){
+            return head1;
+        }
+
+        LinkedListNode mergeHead = null;
+        if(head1.data < head2.data){
+            mergeHead = head1;
+            head1 = head1.next;
+        } else {
+            mergeHead = head2;
+            head2 = head2.next;
+        }
+
+        LinkedListNode mergeTail = mergeHead;
+        while(head1 != null && head2 != null){
+            LinkedListNode tempNode = null;
+
+            if(head1.data <= head2.data){
+                tempNode = head1;
+                head1 = head1.next;
+            } else {
+                tempNode = head2;
+                head2 = head2.next;
+            }
+
+            mergeTail.next = tempNode;
+            mergeTail = tempNode;
+        }
+
+        if(head1 != null){
+            mergeTail.next = head1;
+        } else if (head2 != null) {
+            mergeTail.next = head2;
+        }
+
+        return mergeHead;
+    }
 }
