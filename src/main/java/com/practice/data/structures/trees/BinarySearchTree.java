@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class BinarySearchTree {
 
@@ -126,7 +125,7 @@ public class BinarySearchTree {
         Queue<BinaryTreeNode> queue = new PriorityQueue<>();
         BinaryTreeNode currentNode = this.root;
         queue.add(currentNode);
-        while(queue.size() > 0){
+        while(!queue.isEmpty()){
             currentNode = queue.poll();
             outputList.add(currentNode.data);
             if(currentNode.leftChild != null){
@@ -193,7 +192,7 @@ public class BinarySearchTree {
     }
 
     public boolean isValidBST(BinaryTreeNode root) {
-        return false;
+        return isValidBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
     private boolean isValidBST(BinaryTreeNode binaryTreeNode,int minValue, int maxValue){
@@ -206,7 +205,7 @@ public class BinarySearchTree {
         }
 
         boolean isLeftBinaryTree = isValidBST(binaryTreeNode.leftChild, minValue, binaryTreeNode.data - 1);
-        boolean isRightBinaryTree = isValidBST(binaryTreeNode.rightChild, binaryTreeNode.data - 1, maxValue);
+        boolean isRightBinaryTree = isValidBST(binaryTreeNode.rightChild, binaryTreeNode.data + 1, maxValue);
         return isLeftBinaryTree && isRightBinaryTree;
     }
 
