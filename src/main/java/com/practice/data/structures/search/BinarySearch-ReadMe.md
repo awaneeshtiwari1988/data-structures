@@ -14,7 +14,7 @@ Binary search is significantly faster than linear search, especially for large d
 
 <h4>Step 1: Initialization</h4> Binary search begins with a sorted array or list and two pointers, one pointing to the start of the array (left) and the other to the end of the array (right).
 <h4>Step 2: Finding Middle</h4> Calculate the midpoint between the left and right pointers. This is usually done by taking the average of the two pointers, i.e., mid = left + (right-left) / 2. This covers all use cases.
-<h4>Step 3: Comparison</h4> Compare the value at the midpoint with the target value 
+<h4>Step 3: Comparison</h4> Compare the value at the midpoint with the target value <br/>
     <b>-</b> If the value at the midpoint is equal to the target value, the search is successful.<br/>
     <b>-</b> If the value at the midpoint is greater than the target value, update the right pointer to be one less than the midpoint, effectively eliminating the right half of the search interval.<br/>
     <b>-</b> If the value at the midpoint is less than the target value, update the left pointer to be one more than the midpoint, effectively eliminating the left half of the search interval.<br/>
