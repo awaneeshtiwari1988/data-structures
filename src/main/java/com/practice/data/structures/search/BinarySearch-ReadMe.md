@@ -28,4 +28,7 @@ Binary search continues to divide the search interval in half with each iteratio
 <b>Its time complexity is O(log n)</b>, where n is the number of elements in the sorted array.
 This is in contrast to <b>linear search, which has a time complexity of O(n)</b> and would require examining every element in the worst case.
 
+<h3>Space Complexity</h3>
+The non-recursive solution has space complexity of O(1), whereas recursive solution has O(log n).
+
 <b>Note:</b> Binary search is an essential algorithm used in various applications, including searching in databases, dictionaries, and phonebooks, as well as in many programming tasks where efficient searching is required.
