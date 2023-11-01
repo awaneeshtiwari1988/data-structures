@@ -4,56 +4,60 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TextJustification {
+
     public List<String> fullJustify(String[] words, int maxWidth) {
-        List<String> formattedTextString = new ArrayList<>();
+        List<String> result = new ArrayList<>();
         int startIndex = 0;
 
-        while(startIndex < words.length){
-            int nextStartIndex = startIndex + 1;
-            int lineLength = words[startIndex].length();
+        while (startIndex < words.length) {
+            int nextStartIndex = startIndex;
+            int currentLineLength = 0;
 
-            while(nextStartIndex < words.length && lineLength + words[nextStartIndex].length() + 1 <= maxWidth){
-                lineLength += words[nextStartIndex].length() + 1;
+            // Find the words to include in the current line
+            while (nextStartIndex < words.length && currentLineLength + words[nextStartIndex].length() + nextStartIndex - startIndex <= maxWidth) {
+                currentLineLength += words[nextStartIndex].length();
                 nextStartIndex++;
             }
 
-            StringBuilder lineBuilder = new StringBuilder();
-            int numberOfWords = nextStartIndex - startIndex;
+            int spacesCount = maxWidth - currentLineLength;
+            int wordsCount = nextStartIndex - startIndex;
 
-            if(nextStartIndex == words.length || numberOfWords == 1){
-                for(int i = startIndex; i < nextStartIndex;i++){
-                    lineBuilder.append(words[i]);
-                    if(i < nextStartIndex - 1){
-                        lineBuilder.append(' ');
-                    }
+            // Initialize the line with the first word
+            StringBuilder line = new StringBuilder(words[startIndex]);
+
+            // If it's the last line or only one word in the line, left-justify
+            if (nextStartIndex == words.length || wordsCount == 1) {
+                for (int i = startIndex + 1; i < nextStartIndex; i++) {
+                    line.append(' ');
+                    line.append(words[i]);
                 }
-
-                while(lineBuilder.length() < maxWidth){
-                    lineBuilder.append(' ');
+                while (line.length() < maxWidth) {
+                    line.append(' ');
                 }
             } else {
-                int totalSpaces = maxWidth - lineLength + 1;
-                int spacesBetweenWords = totalSpaces / (numberOfWords - 1);
-                int extraSpacesToDistribute = totalSpaces % (numberOfWords - 1);
+                // Distribute spaces evenly between words
+                int spacesBetweenWords = spacesCount / (wordsCount - 1);
+                int extraSpaces = spacesCount % (wordsCount - 1);
 
-                for(int i = startIndex; i < nextStartIndex;i++){
-                    lineBuilder.append(words[i]);
-                    if(i < nextStartIndex - 1){
-                        lineBuilder.append(" ".repeat(Math.max(0, spacesBetweenWords)));
-
-                        if(i - startIndex < extraSpacesToDistribute){
-                            lineBuilder.append(' ');
-                        }
+                for (int i = startIndex + 1; i < nextStartIndex; i++) {
+                    for (int j = 0; j < spacesBetweenWords; j++) {
+                        line.append(' ');
                     }
+                    if (extraSpaces > 0) {
+                        line.append(' ');
+                        extraSpaces--;
+                    }
+                    line.append(words[i]);
                 }
             }
 
-            formattedTextString.add(lineBuilder.toString());
+            result.add(line.toString());
             startIndex = nextStartIndex;
         }
 
-        return formattedTextString;
+        return result;
     }
+
 
     public static void main(String[] args) {
         TextJustification solution = new TextJustification();
