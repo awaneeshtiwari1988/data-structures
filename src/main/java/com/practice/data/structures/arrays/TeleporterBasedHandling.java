@@ -38,14 +38,14 @@ public class TeleporterBasedHandling {
         }
 
         for(int i = 1; i <= numberOfSidesInDice; i++){
-            int destination = destinationPort(map,i,startIndex,endIndex);
+            int destination = destinationPort(map,i);
             result.add(destination);
         }
 
         return result;
     }
 
-    private int destinationPort(Map<Integer, Integer> map, int rolledDiceNum,int startIndex, int endIndex){
+    private int destinationPort(Map<Integer, Integer> map, int rolledDiceNum){
         return map.getOrDefault(rolledDiceNum, rolledDiceNum);
     }
 }
